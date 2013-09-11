@@ -19,7 +19,7 @@ chatPrint(owner(), vec(0,255,0), "Hello world!")
 ```
 
 
-Rainbow chat (shows usage of arrays):
+Rainbow Chat (shows usage of arrays) (thanks to Divran for this):
 ```
 @name rainbow chat
 runOnChat(1)
