@@ -1,0 +1,11 @@
+{
+	"title"		:	"Wiremod E2: ChatPrint",
+	"type"		:	"tool",
+	"tags"		:	[ "scenic", "build" ],
+	"ignore"	:
+	[
+		"*.md",
+		"*.txt",
+		"*.git*"
+	]
+}

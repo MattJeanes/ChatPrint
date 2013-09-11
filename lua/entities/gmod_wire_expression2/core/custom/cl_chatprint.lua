@@ -1,0 +1,1 @@
+E2Helper.Descriptions["chatPrint"] = "Takes string text as minimum, entity player (before text) and vector color are optional extras."
