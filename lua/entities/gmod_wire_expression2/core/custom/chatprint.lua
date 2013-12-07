@@ -15,6 +15,15 @@ local function ChatPrint(ply,t,...)
 		if type(args[1])=="string" then
 			table.insert(args,1,{255,255,255})
 		end
+		if !game.SinglePlayer() then
+			local str=""
+			for k,v in pairs(args) do
+				if type(v)=="string" then
+					str=str..v
+				end
+			end
+			print(str)
+		end
 		net.Start("E2-Custom-ChatPrint")
 			net.WriteFloat(#args)
 			for k,v in pairs(args) do
