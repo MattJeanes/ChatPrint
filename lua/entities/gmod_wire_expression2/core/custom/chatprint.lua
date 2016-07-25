@@ -3,9 +3,14 @@
 \******************************************************************************/
 
 E2Lib.RegisterExtension("chatprint", true)
-
+local sbox_E2_ChatPrintAdminOnly = CreateConVar( "sbox_E2_ChatPrintAdminOnly", "0", FCVAR_ARCHIVE )
 if SERVER then
 	util.AddNetworkString("E2-Custom-ChatPrint")
+end
+
+local function canPrint(self, target)
+	local ply = self.player
+	return sbox_E2_ChatPrintAdminOnly:GetInt()==0 or (sbox_E2_ChatPrintAdminOnly:GetInt()==1 and ply:IsAdmin())
 end
 
 local function ChatPrint(ply,t,...)
@@ -45,17 +50,21 @@ end
 
 --------------------------------------------------------------------------------
 e2function void chatPrint(...)
+	if not canPrint(self, nil) then return end
 	ChatPrint(nil,nil,...)
 end
 
 e2function void chatPrint(entity ply, ...)
+	if not canPrint(self, ply) then return end
 	ChatPrint(ply,nil,...)
 end
 
 e2function void chatPrint(array r)
+	if not canPrint(self, nil) then return end
 	ChatPrint(nil,r)
 end
 
 e2function void chatPrint(entity ply, array r)
+	if not canPrint(self, ply) then return end
 	ChatPrint(ply,r)
 end
