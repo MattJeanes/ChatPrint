@@ -13,7 +13,7 @@ local function canPrint(self, target)
 	return sbox_E2_ChatPrintAdminOnly:GetInt()==0 or (sbox_E2_ChatPrintAdminOnly:GetInt()==1 and ply:IsAdmin())
 end
 
-local function ChatPrint(ply,t,...)
+local function ChatPrint(self,ply,t,...)
 	local args={...}
 	if t and type(t)=="table" then args=t end
 	if #args>0 then
@@ -27,7 +27,11 @@ local function ChatPrint(ply,t,...)
 					str=str..v
 				end
 			end
-			print(str)
+			if IsValid(ply) and ply:IsPlayer() then
+				print(E2Lib.getOwner(self.entity):Nick().." to "..ply:Nick()..": "..str)
+			else
+				print(E2Lib.getOwner(self.entity):Nick()..": "..str)
+			end
 		end
 		net.Start("E2-Custom-ChatPrint")
 			net.WriteFloat(#args)
@@ -51,20 +55,20 @@ end
 --------------------------------------------------------------------------------
 e2function void chatPrint(...)
 	if not canPrint(self, nil) then return end
-	ChatPrint(nil,nil,...)
+	ChatPrint(self,nil,nil,...)
 end
 
 e2function void chatPrint(entity ply, ...)
 	if not canPrint(self, ply) then return end
-	ChatPrint(ply,nil,...)
+	ChatPrint(self,ply,nil,...)
 end
 
 e2function void chatPrint(array r)
 	if not canPrint(self, nil) then return end
-	ChatPrint(nil,r)
+	ChatPrint(self,nil,r)
 end
 
 e2function void chatPrint(entity ply, array r)
 	if not canPrint(self, ply) then return end
-	ChatPrint(ply,r)
+	ChatPrint(self,ply,r)
 end
