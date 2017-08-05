@@ -28,9 +28,9 @@ local function ChatPrint(self,ply,t,...)
 				end
 			end
 			if IsValid(ply) and ply:IsPlayer() then
-				print(E2Lib.getOwner(self.entity):Nick().." to "..ply:Nick()..": "..str)
+				print(self.player:Nick().." to "..ply:Nick()..": "..str)
 			else
-				print(E2Lib.getOwner(self.entity):Nick()..": "..str)
+				print(self.player:Nick()..": "..str)
 			end
 		end
 		net.Start("E2-Custom-ChatPrint")
